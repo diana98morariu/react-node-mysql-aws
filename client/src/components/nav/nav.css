@@ -1,0 +1,26 @@
+.navigation {
+  width: 100vw;
+  background-color: beige;
+  height: fit-content;
+}
+.nav-container {
+  display: flex;
+  flex-direction: row;
+}
+.nav-link {
+  width: fit-content;
+  margin: auto;
+  font-weight: 600;
+  color: black;
+}
+.nav-link:hover {
+  text-decoration: underline;
+}
+.active {
+  text-decoration: underline;
+}
+.logo {
+  width: 120px;
+  height: auto;
+  padding: 1em;
+}

@@ -1,0 +1,7 @@
+client/node_modules
+client/package-lock.json
+
+server/node_modules
+server/config/awscredentials.js
+server/config/dbcredentials.js
+server/package-lock.json

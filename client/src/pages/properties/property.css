@@ -1,0 +1,37 @@
+.propertyCard {
+  margin: 0.5em;
+  box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  height: 16em;
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  cursor: pointer;
+}
+.propertyCard:hover {
+  box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.35);
+}
+.propertyDetails {
+  text-align: left;
+  padding: 1em;
+}
+.propertyImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.propertyImageContainer {
+  width: 45%;
+  height: 100%;
+}
+.weather-container p {
+  margin: 0;
+}
+.weather-info {
+  display: flex;
+  flex-direction: row;
+}
+.weather-info img {
+  margin: 1em;
+}

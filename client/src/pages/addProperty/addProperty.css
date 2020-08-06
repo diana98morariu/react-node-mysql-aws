@@ -1,0 +1,39 @@
+.first-6-inputs {
+  display: flex;
+  flex-direction: row;
+  /* align-content: flex-start; */
+  width: 100%;
+}
+.inputs-3 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.file-input-btn {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: fit-content;
+  margin: auto;
+}
+.add-property-form {
+  width: 55%;
+  margin: auto;
+  margin-top: 5em;
+}
+.p-text {
+  margin: 0 0 5px 0;
+}
+.add-property-btn {
+  border: none;
+  background-color: #f99746;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 50%;
+  margin: auto;
+  cursor: pointer;
+}
+.save-btn:hover {
+  background-color: #f7872c;
+}

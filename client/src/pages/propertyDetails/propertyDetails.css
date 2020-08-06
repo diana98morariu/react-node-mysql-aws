@@ -1,0 +1,9 @@
+.property-container {
+  display: flex;
+  flex-direction: row;
+  padding: 5em;
+}
+.property-details {
+  text-align: left;
+  padding: 2.5em;
+}

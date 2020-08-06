@@ -1,0 +1,7 @@
+.properties-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: auto;
+  width: 50%;
+}
