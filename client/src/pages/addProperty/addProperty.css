@@ -1,3 +1,7 @@
+.add-property-container {
+  width: 80vw;
+  margin: 0 auto;
+}
 .first-6-inputs {
   display: flex;
   flex-direction: row;
@@ -34,6 +38,6 @@
   margin: auto;
   cursor: pointer;
 }
-.save-btn:hover {
-  background-color: #f7872c;
+.add-property-btn:hover {
+  background-color: #faa662;
 }

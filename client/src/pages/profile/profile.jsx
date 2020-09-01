@@ -106,6 +106,7 @@ export default function Profile(props) {
                     onClick={() => {
                       history.push(`/propertydetails/${property.id}`);
                     }}
+                    style={{ width: "80%" }}
                   >
                     <Property
                       key={property.id}
@@ -118,7 +119,7 @@ export default function Profile(props) {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      width: "25vw",
+                      width: "20%",
                     }}
                   >
                     <button

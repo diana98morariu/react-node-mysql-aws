@@ -39,21 +39,23 @@ export default function Profile() {
   return (
     <div>
       <Nav />
-      <div className="properties-container">
-        {properties.map((property) => (
-          <div
-            onClick={() => {
-              history.push(`/propertydetails/${property.id}`);
-            }}
-          >
-            <Property
-              key={property.id}
-              property={property}
-              title={property.title}
-              description={property.description}
-            />
-          </div>
-        ))}
+      <div className="main-container">
+        <div className="properties-container">
+          {properties.map((property) => (
+            <div
+              onClick={() => {
+                history.push(`/propertydetails/${property.id}`);
+              }}
+            >
+              <Property
+                key={property.id}
+                property={property}
+                title={property.title}
+                description={property.description}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

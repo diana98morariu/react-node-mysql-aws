@@ -5,7 +5,7 @@
   height: 16em;
   display: flex;
   flex-direction: row;
-  width: 50vw;
+  width: 100%;
   cursor: pointer;
 }
 .propertyCard:hover {

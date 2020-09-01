@@ -47,7 +47,12 @@ export default function Nav({ isAuth, setIsAuth }) {
           >
             ADD PROPERTY
           </NavLink>
-          <div className="logo-container">
+          <div
+            className="logo-container"
+            onClick={() => {
+              history.push("/");
+            }}
+          >
             <img
               src="https://react-node-mysql.s3.eu-north-1.amazonaws.com/logo-yournewhome.png"
               alt="logo"
