@@ -13,8 +13,11 @@ import EditProperty from "./pages/editProperty/editProperty";
 import PropertyDetails from "./pages/propertyDetails/propertyDetails";
 import AddProperty from "./pages/addProperty/addProperty";
 import Error from "./pages/error";
+import toastr from "toastr";
+import toastrSetup from "./toastrSettings";
 
 export default function App() {
+  toastr.options = toastrSetup;
   const [isAuth, setIsAuth] = useState(true);
 
   useEffect(() => {

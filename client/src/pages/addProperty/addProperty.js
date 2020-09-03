@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./addProperty.css";
 import Nav from "./../../components/nav/nav";
+import citiesAndCountries from "./../../citiesAndCountries.json";
+import toastr from "toastr";
+import "./../../toastr.css";
 
 export default function AddProperty() {
   const [properties, setProperties] = useState([]);
@@ -15,16 +18,53 @@ export default function AddProperty() {
   const [files, setFiles] = useState([]);
   const history = useHistory();
 
-  const submitForm = async () => {
+  const countries = Object.keys(citiesAndCountries);
+  const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
+
+  const submitForm = async (e) => {
+    e.preventDefault();
     const fileInput = document.querySelector("#propertyImage");
+
+    if (newTitle.length < 1 || newTitle.length > 255) {
+      return toastr.warning("Title must be between 1-255 characters");
+    }
+    if (newDescription.length < 20 || newDescription.length > 500) {
+      return toastr.warning("Description must be between 20-500 characters");
+    }
+    if (newAddress.length < 10 || newAddress.length > 255) {
+      return toastr.warning("Address must be between 10-255 characters");
+    }
+    if (newPostalCode.length < 1 || newPostalCode.length > 10) {
+      return toastr.warning("Postal code must be between 1-10 characters");
+    }
+    if (
+      newCountry.length < 2 ||
+      newCountry.length > 15 ||
+      !countries.includes(capitalize(newCountry))
+    ) {
+      return toastr.warning("Invalid country");
+    }
+    const inputCities = Object.values(
+      citiesAndCountries[capitalize(newCountry)]
+    );
+    if (
+      newCity.length < 2 ||
+      newCity.length > 50 ||
+      !inputCities.includes(capitalize(newCity))
+    ) {
+      return toastr.warning("Invalid city");
+    }
+    if (fileInput.files.length < 1)
+      return toastr.warning("You need to upload an image!");
+
     const requestData = new FormData();
     const addPropertyData = {
-      title: newTitle,
-      description: newDescription,
-      address: newAddress,
-      postalCode: newPostalCode,
-      city: newCity,
-      country: newCountry,
+      title: capitalize(newTitle),
+      description: capitalize(newDescription),
+      address: capitalize(newAddress),
+      postalCode: capitalize(newPostalCode),
+      city: capitalize(newCity),
+      country: capitalize(newCountry),
     };
     requestData.append("data", JSON.stringify(addPropertyData));
 
@@ -35,14 +75,25 @@ export default function AddProperty() {
       credentials: "include",
       body: requestData,
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        res.json();
+      })
       .then((data) => {
         let newProperties = [...properties];
         console.log(data);
         newProperties.unshift(data);
         setProperties(newProperties);
+
+        history.push("/profile");
+        toastr.success("Property created successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+        return toastr.warning("Error creating property");
       });
-    history.push("/profile");
   };
 
   return (
@@ -94,21 +145,21 @@ export default function AddProperty() {
                   />
                 </div>
                 <div>
-                  <p className="p-text">City</p>
-                  <input
-                    type="text"
-                    placeholder="Add a city"
-                    value={newCity}
-                    onChange={(e) => setNewCity(e.target.value)}
-                  />
-                </div>
-                <div>
                   <p className="p-text">Country</p>
                   <input
                     type="text"
                     placeholder="Add a country"
                     value={newCountry}
                     onChange={(e) => setNewCountry(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p className="p-text">City</p>
+                  <input
+                    type="text"
+                    placeholder="Add a city"
+                    value={newCity}
+                    onChange={(e) => setNewCity(e.target.value)}
                   />
                 </div>
               </div>

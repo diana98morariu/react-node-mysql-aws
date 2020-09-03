@@ -1,14 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const path = require("path");
-const formidable = require("formidable");
-const detect = require("detect-file-type");
-// const User = require("../../models/User")
 const Property = require("../../models/Property");
 const { isAuthenticated } = require(__dirname + "/../../helpers/auth.js");
 const { uploadFile, removeImages } = require(__dirname +
   "/../../helpers/handleImages.js");
 const { v1: uuid } = require("uuid");
+const validator = require("validator");
 
 const upload = uploadFile.array("propertyImage", 1);
 
@@ -93,7 +90,9 @@ router.post("/", isAuthenticated, async (req, res, next) => {
       const data = JSON.parse(req.body.data);
 
       if (req.files.length < 1)
-        return res.json({ status: 0, message: "Missing images!", code: 404 });
+        return res
+          .status(400)
+          .json({ status: 0, message: "Missing images!", code: 404 });
       const photos = [];
       req.files.map((img) => photos.push(img.location.slice(-41)));
       newProperty.propertyImage = photos[0];

@@ -247,7 +247,6 @@ router.post("/changePassword/", async (req, res) => {
   }
 });
 
-// send email and create token and expire time
 router.post("/forgottenPassword", async (req, res) => {
   if (req.body.email === "") {
     res.status(400).send("email required");
