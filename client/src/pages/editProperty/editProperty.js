@@ -23,7 +23,7 @@ export default function EditProperty(props) {
   const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
   function fetchProperty() {
-    fetch(`http://localhost:9090/api/properties//property/${propertyId}`, {
+    fetch(`/api/properties//property/${propertyId}`, {
       credentials: "include",
     })
       .then((res) => {
@@ -93,7 +93,7 @@ export default function EditProperty(props) {
     requestData.append("data", JSON.stringify(addPropertyData));
     requestData.append("propertyImage", fileInput.files[0]);
 
-    fetch(`http://localhost:9090/api/properties/${propertyId}`, {
+    fetch(`/api/properties/${propertyId}`, {
       method: "PATCH",
       credentials: "include",
       body: requestData,

@@ -9,6 +9,9 @@ const KnexStore = require("connect-session-knex")(session);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// static files
+app.use(express.static("build"));
+
 //router files
 const apiRoutes = require("./routes/api");
 // const forgotPasswordRoute = require("./routes/forgotPassword.js");
@@ -64,6 +67,10 @@ app.use("/api", apiRoutes, authLimiter);
 app.use("/forgottenPassword", authLimiter);
 app.use("/reset", authLimiter);
 
+app.get("*", (req, res) => {
+  res.sendFile("/build/index.html", { root: __dirname });
+});
+
 //error handling
 const { errorHandler } = require("./helpers/errors");
 app.use((err, req, res, next) => {
@@ -71,7 +78,8 @@ app.use((err, req, res, next) => {
 });
 
 //start the server
-const server = app.listen(9090, (error) => {
+const port = process.env.PORT || 9090;
+const server = app.listen(port, (error) => {
   if (error) {
     console.log("Error running express");
   }

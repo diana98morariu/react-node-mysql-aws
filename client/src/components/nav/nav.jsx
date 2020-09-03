@@ -5,7 +5,7 @@ import "./nav.css";
 export default function Nav({ isAuth, setIsAuth }) {
   const history = useHistory();
   function logout() {
-    fetch(`http://localhost:9090/api/users/logout`, {
+    fetch(`/api/users/logout`, {
       credentials: "include",
       method: "POST",
       headers: {

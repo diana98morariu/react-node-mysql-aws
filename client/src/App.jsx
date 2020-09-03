@@ -22,16 +22,13 @@ export default function App() {
 
   useEffect(() => {
     async function isUserAuthenticated() {
-      const response = await fetch(
-        "http://localhost:9090/api/users/is-authenticated",
-        {
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("/api/users/is-authenticated", {
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         console.log("ok");
         setIsAuth(true);

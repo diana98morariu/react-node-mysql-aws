@@ -12,7 +12,7 @@ export default function Profile(props) {
   const history = useHistory();
 
   function fetchUser() {
-    fetch("http://localhost:9090/api/users/", { credentials: "include" })
+    fetch("/api/users/", { credentials: "include" })
       .then((res) => {
         if (res.status === 403) {
           return history.push("/login");
@@ -33,7 +33,7 @@ export default function Profile(props) {
       });
   }
   function fetchUserProperties(id) {
-    fetch(`http://localhost:9090/api/properties/${id}`, {
+    fetch(`/api/properties/${id}`, {
       credentials: "include",
     })
       .then((res) => {
@@ -61,7 +61,7 @@ export default function Profile(props) {
     newProperties.splice(index, 1);
     setProperties(newProperties);
 
-    fetch(`http://localhost:9090/api/properties/` + id, {
+    fetch(`/api/properties/` + id, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

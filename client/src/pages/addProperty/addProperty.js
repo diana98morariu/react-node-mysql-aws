@@ -70,7 +70,7 @@ export default function AddProperty() {
 
     requestData.append("propertyImage", fileInput.files[0]);
     console.log(files);
-    fetch("http://localhost:9090/api/properties/", {
+    fetch("/api/properties/", {
       method: "POST",
       credentials: "include",
       body: requestData,

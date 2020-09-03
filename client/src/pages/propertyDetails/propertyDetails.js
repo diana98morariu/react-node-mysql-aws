@@ -10,7 +10,7 @@ export default function PropertyDetails(props) {
   const propertyId = props.match.params.id;
 
   function fetchProperty() {
-    fetch(`http://localhost:9090/api/properties//property/${propertyId}`, {
+    fetch(`/api/properties//property/${propertyId}`, {
       credentials: "include",
     })
       .then((res) => {

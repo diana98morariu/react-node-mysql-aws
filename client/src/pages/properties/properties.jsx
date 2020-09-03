@@ -15,7 +15,7 @@ export default function Properties() {
 
   const history = useHistory();
   function fetchUserProperties() {
-    fetch("http://localhost:9090/api/properties/", { credentials: "include" })
+    fetch("/api/properties/", { credentials: "include" })
       .then((res) => {
         console.log(res);
         if (res.status === 403) {
@@ -36,45 +36,6 @@ export default function Properties() {
         setIsLoading(false);
       });
   }
-  // function createProperty() {
-  //   fetch("http://localhost:9090/api/properties/", {
-  //     credentials: "include",
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       title: newHobby,
-  //       startedYear: newStartedYear,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       let newHobbies = [...hobbies];
-  //       newHobbies.unshift(data);
-  //       setHobbies(newHobbies);
-  //     });
-  // }
-  // const removeHobby = (id) => {
-  //   const index = hobbies.findIndex((x) => x.id === id);
-  //   const newHobbies = [...hobbies];
-  //   newHobbies.splice(index, 1);
-  //   setHobbies(newHobbies);
-
-  //   fetch(`http://localhost:9090/api/hobbies/` + id, {
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     credentials: "include",
-  //     method: "DELETE",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // };
 
   useEffect(() => {
     fetchUserProperties();

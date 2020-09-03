@@ -10,7 +10,7 @@ export default function Profile() {
   const history = useHistory();
 
   function fetchProperties() {
-    fetch("http://localhost:9090/api/properties/", { credentials: "include" })
+    fetch("/api/properties/", { credentials: "include" })
       .then((res) => {
         // console.log(res);
         if (res.status === 403) {
