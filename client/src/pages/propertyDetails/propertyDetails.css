@@ -2,8 +2,11 @@
   display: flex;
   flex-direction: row;
   padding: 5em;
+  width: 90vw;
+  height: 50vh;
 }
 .property-details {
   text-align: left;
-  padding: 2.5em;
+  padding: 0 2.5em;
+  width: 60%;
 }

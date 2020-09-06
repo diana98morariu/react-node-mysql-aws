@@ -15,7 +15,7 @@ exports.up = function (knex) {
     .createTable("properties", (table) => {
       table.increments("id");
       table.string("title").notNullable();
-      table.string("description").notNullable();
+      table.string("description", 1500).notNullable();
       table.string("propertyImage").notNullable();
       table.string("address").notNullable();
       table.string("postalCode").notNullable();

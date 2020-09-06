@@ -6,18 +6,13 @@ import Nav from "../../components/nav/nav";
 
 export default function Properties() {
   const [properties, setProperties] = useState([]);
-  // const [newProperty, setNewProperty] = useState([]);
-  // const [newStartedYear, setNewStartedYear] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const user_data = useStore();
-  console.log(user_data);
-
   const history = useHistory();
+
   function fetchUserProperties() {
     fetch("/api/properties/", { credentials: "include" })
       .then((res) => {
-        console.log(res);
         if (res.status === 403) {
           return history.push("/login");
         }
@@ -28,12 +23,12 @@ export default function Properties() {
         }
       })
       .then((data) => {
-        console.log(data);
         setProperties(data);
         setIsLoading(false);
       })
       .catch((error) => {
         setIsLoading(false);
+        console.log(error);
       });
   }
 
@@ -47,23 +42,6 @@ export default function Properties() {
         <Nav />
         {!isLoading ? (
           <React.Fragment>
-            {/* <div>
-              <input
-                type="text"
-                placeholder="Put in a hobby"
-                value={newHobby}
-                onChange={(e) => setNewHobby(e.target.value)}
-              />
-              <input
-                type="number"
-                step="1"
-                placeholder="Put in the year you started"
-                value={newStartedYear}
-                onChange={(e) => setNewStartedYear(e.target.value)}
-              />
-              <button onClick={createHobby}>Add</button>
-            </div> */}
-
             <div>
               {properties.map((property) => (
                 <Property

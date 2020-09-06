@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
-// import Nav from "./components/nav/nav"
 import Login from "./components/login/login";
 import Register from "./components/login/register";
-import ResetPassword from "./components/login/resetPassword";
-import ForgottenPassword from "./components/login/forgottenPassword";
-import EmailSent from "./components/login/emailSent";
 import Profile from "./pages/profile/profile";
 import Home from "./pages/home/home";
 import EditProperty from "./pages/editProperty/editProperty";
 import PropertyDetails from "./pages/propertyDetails/propertyDetails";
 import AddProperty from "./pages/addProperty/addProperty";
+import TutorialTour from "./components/tour/Tour";
 import Error from "./pages/error";
 import toastr from "toastr";
 import toastrSetup from "./toastrSettings";
@@ -19,31 +16,60 @@ import toastrSetup from "./toastrSettings";
 export default function App() {
   toastr.options = toastrSetup;
   const [isAuth, setIsAuth] = useState(true);
+  const [isTourOpen, setIsTourOpen] = useState(false);
+  const [loggedUser, setLoggedUser] = useState({});
+
+  const handleOpenTour = () => {
+    setIsTourOpen(true);
+  };
 
   useEffect(() => {
     async function isUserAuthenticated() {
-      const response = await fetch("/api/users/is-authenticated", {
+      await fetch("/api/users/is-authenticated", {
         credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      });
-      if (response.status === 200) {
-        console.log("ok");
-        setIsAuth(true);
-      } else {
-        setIsAuth(false);
-      }
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            setIsAuth(false);
+            throw new Error(res.statusText);
+          }
+          setIsAuth(true);
+
+          res.json().then((data) => {
+            setLoggedUser(data.user);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     isUserAuthenticated();
   }, [isAuth]);
-  console.log(isAuth);
 
   return (
     <BrowserRouter>
       <div className="App" id="root">
         <main>
+          <button
+            onClick={handleOpenTour}
+            style={{
+              border: "none",
+              backgroundColor: "#f99746",
+              color: "white",
+              padding: "0.7em 1em",
+              borderRadius: "5px",
+              position: "fixed",
+              right: "1em",
+              bottom: "1em",
+              cursor: "pointer",
+            }}
+          >
+            Tutorial
+          </button>
           <Switch>
             <Route
               path="/login"
@@ -52,18 +78,13 @@ export default function App() {
               )}
             />
             <Route path="/register" component={Register} exact />
-            <Route
-              path="/changePassword/:token"
-              component={ResetPassword}
+            <PrivateRoute
+              path="/"
+              component={Home}
+              isAuth={isAuth}
               exact
+              setIsTourOpen={setIsTourOpen}
             />
-            <Route
-              path="/forgottenPassword"
-              component={ForgottenPassword}
-              exact
-            />
-            <Route path="/emailSent" component={EmailSent} exact />
-            <PrivateRoute path="/" component={Home} isAuth={isAuth} exact />
             <PrivateRoute
               path="/profile"
               component={Profile}
@@ -90,6 +111,8 @@ export default function App() {
             />
             <Route component={Error} />
           </Switch>
+
+          <TutorialTour isTourOpen={isTourOpen} setIsTourOpen={setIsTourOpen} />
         </main>
       </div>
     </BrowserRouter>
@@ -97,15 +120,10 @@ export default function App() {
 }
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
-  console.log(isAuth);
   return (
-    // super private route
     <Route
       {...rest}
       render={(props) =>
-        // isAuth ?
-        //     <Component {...props} />
-        // : <Redirect to="/login" />
         !isAuth ? (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}

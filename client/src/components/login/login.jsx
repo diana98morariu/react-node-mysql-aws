@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import userIcon from "../../user-image.svg";
 import "./style.css";
+import toastr from "toastr";
+import "./../../toastr.css";
 
 export default function Login({ setIsAuth }) {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState(null);
 
   function requestLogin() {
     fetch("/api/users/login", {
@@ -24,15 +25,15 @@ export default function Login({ setIsAuth }) {
     })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           setIsAuth(true);
+          toastr.success("Logged in successfully!");
           history.push("/");
         } else {
           throw res;
         }
       })
       .catch((err) => {
-        console.log("error when logging in");
+        toastr.warning("The username or password do not match");
       });
   }
 
@@ -73,9 +74,6 @@ export default function Login({ setIsAuth }) {
       </div>
       <a onClick={() => history.push("/register")}>
         Don't have an account? Register now!
-      </a>
-      <a onClick={() => history.push("/forgottenPassword")}>
-        Forgot you password? Reset it now!
       </a>
     </div>
   );

@@ -6,9 +6,7 @@ import Property from "../properties/property";
 
 export default function Profile(props) {
   const [user, setUser] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [properties, setProperties] = useState([]);
-  const [newProperties, setNewProperties] = useState([]);
   const history = useHistory();
 
   function fetchUser() {
@@ -26,10 +24,9 @@ export default function Profile(props) {
       .then((data) => {
         setUser(data);
         fetchUserProperties(data.id);
-        setIsLoading(false);
       })
       .catch((error) => {
-        setIsLoading(false);
+        console.log(error);
       });
   }
   function fetchUserProperties(id) {
@@ -48,10 +45,9 @@ export default function Profile(props) {
       })
       .then((data) => {
         setProperties(data);
-        setIsLoading(false);
       })
       .catch((error) => {
-        setIsLoading(false);
+        console.log(error);
       });
   }
 
@@ -72,6 +68,9 @@ export default function Profile(props) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -85,7 +84,10 @@ export default function Profile(props) {
       {user ? (
         <React.Fragment>
           <div className="profile-page">
-            <div className="profile-base-container">
+            <div
+              className="profile-base-container"
+              data-tut="reactour__profile_card"
+            >
               <div className="profile-picture">
                 <img
                   src="https://react-node-mysql.s3.eu-north-1.amazonaws.com/icons8-user-male-192.png"
@@ -99,7 +101,10 @@ export default function Profile(props) {
               <p>Email: {user.email}</p>
             </div>
 
-            <div className="user-properties">
+            <div
+              className="user-properties"
+              data-tut="reactour__profile_properties"
+            >
               {properties.map((property) => (
                 <div className="user-property">
                   <div

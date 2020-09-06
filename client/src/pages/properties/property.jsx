@@ -8,7 +8,7 @@ const Property = ({ property }) => {
   const [humidity, setHumidity] = useState("");
   const [description, setDescription] = useState("");
 
-  async function getWeather(e) {
+  async function getWeather() {
     const apiCall = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${property.city},${property.country}&appid=${API_KEY}&units=metric`
     );

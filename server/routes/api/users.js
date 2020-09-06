@@ -23,11 +23,11 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 router.get("/is-authenticated", async (req, res) => {
   try {
     const loggedUser = await User.query()
-      .select("username", "email", "firstName", "lastName")
+      .select("username", "email", "firstName", "lastName", "createdAt")
       .findById(req.session.user.id);
     if (!loggedUser)
       return res.status(404).json({ status: 0, msg: "User not authorized!" });
-    res
+    return res
       .status(200)
       .json({ status: 1, msg: "User authorized!", user: loggedUser });
   } catch (err) {

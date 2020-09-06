@@ -24,7 +24,7 @@ export default function Nav({ isAuth, setIsAuth }) {
       });
   }
   return (
-    <nav className="navigation">
+    <nav className="navigation" data-tut="reactour__home_nav">
       <React.Fragment>
         <div className="nav-container">
           <NavLink
@@ -44,6 +44,7 @@ export default function Nav({ isAuth, setIsAuth }) {
                 ? "nav-link active"
                 : "nav-link"
             }
+            datatut="reactour__add_property"
           >
             ADD PROPERTY
           </NavLink>
@@ -67,6 +68,7 @@ export default function Nav({ isAuth, setIsAuth }) {
                 ? "nav-link active"
                 : "nav-link"
             }
+            datatut="reactour__profile"
           >
             MY PROFILE
           </NavLink>

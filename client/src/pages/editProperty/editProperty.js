@@ -7,11 +7,9 @@ import "./../../toastr.css";
 import Nav from "./../../components/nav/nav";
 
 export default function EditProperty(props) {
-  const [property, setProperty] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [property, setProperty] = useState({});
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
-  const [newPropertyImage, setNewPropertyImage] = useState([]);
   const [newAddress, setNewAddress] = useState("");
   const [newPostalCode, setNewPostalCode] = useState("");
   const [newCity, setNewCity] = useState("");
@@ -38,10 +36,15 @@ export default function EditProperty(props) {
       })
       .then((data) => {
         setProperty(data);
-        setIsLoading(false);
+        setNewTitle(data.title);
+        setNewDescription(data.description);
+        setNewAddress(data.address);
+        setNewPostalCode(data.postalCode);
+        setNewCity(data.city);
+        setNewCountry(data.country);
       })
       .catch((error) => {
-        setIsLoading(false);
+        console.log(error);
       });
   }
 
@@ -52,8 +55,8 @@ export default function EditProperty(props) {
     if (newTitle.length < 1 || newTitle.length > 255) {
       return toastr.warning("Title must be between 1-255 characters");
     }
-    if (newDescription.length < 20 || newDescription.length > 500) {
-      return toastr.warning("Description must be between 20-500 characters");
+    if (newDescription.length < 20 || newDescription.length > 1000) {
+      return toastr.warning("Description must be between 20-1000 characters");
     }
     if (newAddress.length < 10 || newAddress.length > 255) {
       return toastr.warning("Address must be between 10-255 characters");
@@ -109,7 +112,7 @@ export default function EditProperty(props) {
         toastr.success("Property edited successfully!");
       })
       .catch((error) => {
-        setIsLoading(false);
+        console.log(error);
       });
   };
   useEffect(() => {

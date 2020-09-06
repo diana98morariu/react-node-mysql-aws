@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./addProperty.css";
 import Nav from "./../../components/nav/nav";
@@ -15,7 +15,6 @@ export default function AddProperty() {
   const [newPostalCode, setNewPostalCode] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newCountry, setNewCountry] = useState("");
-  const [files, setFiles] = useState([]);
   const history = useHistory();
 
   const countries = Object.keys(citiesAndCountries);
@@ -28,8 +27,8 @@ export default function AddProperty() {
     if (newTitle.length < 1 || newTitle.length > 255) {
       return toastr.warning("Title must be between 1-255 characters");
     }
-    if (newDescription.length < 20 || newDescription.length > 500) {
-      return toastr.warning("Description must be between 20-500 characters");
+    if (newDescription.length < 20 || newDescription.length > 1000) {
+      return toastr.warning("Description must be between 20-1000 characters");
     }
     if (newAddress.length < 10 || newAddress.length > 255) {
       return toastr.warning("Address must be between 10-255 characters");
@@ -69,7 +68,6 @@ export default function AddProperty() {
     requestData.append("data", JSON.stringify(addPropertyData));
 
     requestData.append("propertyImage", fileInput.files[0]);
-    console.log(files);
     fetch("/api/properties/", {
       method: "POST",
       credentials: "include",
@@ -83,7 +81,6 @@ export default function AddProperty() {
       })
       .then((data) => {
         let newProperties = [...properties];
-        console.log(data);
         newProperties.unshift(data);
         setProperties(newProperties);
 
@@ -97,10 +94,13 @@ export default function AddProperty() {
   };
 
   return (
-    <div>
+    <div data-tut="reactour__finish">
       <Nav />
       <h1> Add property</h1>
-      <div className="add-property-container">
+      <div
+        className="add-property-container"
+        data-tut="reactour__add_property_form"
+      >
         <form onSubmit={submitForm} method="POST">
           <div className="add-property-form">
             <div className="first-6-inputs">

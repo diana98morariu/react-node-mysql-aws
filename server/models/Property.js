@@ -43,7 +43,6 @@ class Property extends Model {
         description: {
           type: "string",
           minLength: 20,
-          maxLength: 500,
         },
         address: {
           type: "string",
