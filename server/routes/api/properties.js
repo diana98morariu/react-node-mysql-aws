@@ -4,8 +4,6 @@ const Property = require("../../models/Property");
 const { isAuthenticated } = require(__dirname + "/../../helpers/auth.js");
 const { uploadFile, removeImages } = require(__dirname +
   "/../../helpers/handleImages.js");
-const { v1: uuid } = require("uuid");
-const validator = require("validator");
 
 const upload = uploadFile.array("propertyImage", 1);
 

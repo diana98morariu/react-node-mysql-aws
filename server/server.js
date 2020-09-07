@@ -14,8 +14,6 @@ app.use(express.static("build"));
 
 //router files
 const apiRoutes = require("./routes/api");
-// const forgotPasswordRoute = require("./routes/forgotPassword.js");
-// const resetPasswordRoute = require("./routes/resetPassword.js");
 
 //knex and objections
 const Knex = require("knex");
@@ -62,7 +60,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//incluse the routes to express
+//include the routes to express
 app.use("/api", apiRoutes, authLimiter);
 app.use("/forgottenPassword", authLimiter);
 app.use("/reset", authLimiter);

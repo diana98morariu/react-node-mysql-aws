@@ -17,7 +17,6 @@ export default function App() {
   toastr.options = toastrSetup;
   const [isAuth, setIsAuth] = useState(true);
   const [isTourOpen, setIsTourOpen] = useState(false);
-  const [loggedUser, setLoggedUser] = useState({});
 
   const handleOpenTour = () => {
     setIsTourOpen(true);
@@ -38,10 +37,6 @@ export default function App() {
             throw new Error(res.statusText);
           }
           setIsAuth(true);
-
-          res.json().then((data) => {
-            setLoggedUser(data.user);
-          });
         })
         .catch((error) => {
           console.log(error);
@@ -78,13 +73,7 @@ export default function App() {
               )}
             />
             <Route path="/register" component={Register} exact />
-            <PrivateRoute
-              path="/"
-              component={Home}
-              isAuth={isAuth}
-              exact
-              setIsTourOpen={setIsTourOpen}
-            />
+            <PrivateRoute path="/" component={Home} isAuth={isAuth} exact />
             <PrivateRoute
               path="/profile"
               component={Profile}

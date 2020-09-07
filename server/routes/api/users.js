@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
-// const xoauth2 = require("xoauth2")
 const moment = require("moment");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;

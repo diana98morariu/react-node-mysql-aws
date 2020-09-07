@@ -4,7 +4,7 @@ import Nav from "../../components/nav/nav";
 import Property from "../properties/property";
 import "./home.css";
 
-export default function Home({ setIsTourOpen }) {
+export default function Home() {
   const [properties, setProperties] = useState([]);
   const history = useHistory();
 
